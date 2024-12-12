@@ -11,6 +11,11 @@
     </div>
 </div>
 
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/tugas.css') }}">
+@endpush
+
+
 @if (count($errors) > 0)
     <div class="alert alert-danger">
       <strong>Whoops!</strong> There were some problems with your input.<br><br>

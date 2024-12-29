@@ -15,11 +15,11 @@
 
 
 <table class="table table-bordered">
-  <tr>
-     <th width="100px">No</th>
-     <th>Name</th>
-     <th width="280px">Action</th>
-  </tr>
+    <tr>
+        <th width="100px">No</th>
+        <th>Name</th>
+        <th width="280px">Action</th>
+    </tr>
     @foreach ($roles as $key => $role)
     <tr>
         <td>{{ ++$i }}</td>

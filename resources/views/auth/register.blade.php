@@ -1,15 +1,15 @@
 <x-guest-layout>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow" style="border-radius: 8px;">
-        <div class="container">
-            <a class="navbar-brand" href="#">
+        <div class="container-fluid">
+            <a class="navbar-brand ps-3" href="#">
                 <img src="{{ asset('images/logo.png') }}" alt="Tel-U Timetable" style="height: 50px;">
             </a>
-            <div class="d-flex">
+            <div class="d-flex me-3 align-items-center">
                 <!-- Tombol Daftar -->
-                <a href="{{ route('register') }}" class="btn btn-secondary me-2">Daftar</a>
+                <a href="{{ route('register') }}" class="btn btn-secondary me-2" style="width: 100px;">Daftar</a>
                 <!-- Tombol Masuk -->
-                <a href="{{ route('login') }}" class="btn btn-danger">Masuk</a>
+                <a href="{{ route('login') }}" class="btn btn-danger" style="width: 100px;">Masuk</a>
             </div>
         </div>
     </nav>

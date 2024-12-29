@@ -35,7 +35,7 @@
                     <!-- Menu khusus untuk dosen -->
                     @canany(['tugas-list', 'tugas-create', 'tugas-edit', 'tugas-delete'])
                         @if (!auth()->user()->hasRole('Admin')) <!-- Tambahkan pengecekan -->
-                            <li><a class="nav-link" href="{{ route('tugas.index') }}">Manage Tugas</a></li>
+                            {{-- <li><a class="nav-link" href="{{ route('tugas.index') }}">Manage Tugas</a></li> --}}
                         @endif
                     @endcanany
 

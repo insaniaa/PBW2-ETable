@@ -3,7 +3,12 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
+sal
 use App\Http\Controllers\TugasController;
+
+use App\Http\Controllers\TaskController;
+
+ main
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,3 +41,47 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+#add dari van
+
+Route::get('/mahasiswa', function () {
+    return view('mahasiswa');
+});
+
+// Route::get('/dsn', function () {
+//     return view('dosen');
+// });
+
+Route::get('/jdwlM', function () {
+    return view('jdwl');
+});
+
+Route::get('/jdwlMa', function () {
+    return view('jadwalMahasiswa');
+});
+
+Route::get('/jadwalkan', function () {
+    return view('jadwalkanAdmin');
+});
+
+Route::get('/berandaA', function () {
+    return view('berandaAdmin');
+});
+
+//task
+Route::get('/tugas', [TaskController::class,'view' ]);
+Route::resource('tasks', TaskController::class);
+
+Route::get('/dsn', [TaskController::class,'index' ]);
+Route::resource('tasks', TaskController::class);
+
+Route::get('/tasks/view', [TaskController::class, 'index']);
+Route::resource('tasks', TaskController::class);
+
+
+Route::get('/tasks/create', [TaskController::class, 'create'])->name('tasks.create');
+Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
+
+
+
+Route::get('/tasks/{id}', [TaskController::class, 'show'])->name('tasks.show');

@@ -3,12 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
-sal
 use App\Http\Controllers\TugasController;
-
 use App\Http\Controllers\TaskController;
-
- main
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,7 +23,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return redirect()->route('kelola.kelas'); // Redirect langsung ke Kelola Kelas
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -82,6 +78,20 @@ Route::resource('tasks', TaskController::class);
 Route::get('/tasks/create', [TaskController::class, 'create'])->name('tasks.create');
 Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
 
-
-
 Route::get('/tasks/{id}', [TaskController::class, 'show'])->name('tasks.show');
+
+Route::get('/kelola-kelas', function () {
+    return view('kelola.kelas');
+})->name('kelola.kelas');
+
+Route::get('/kelola-jadwal', function () {
+    return view('kelola.jadwal');
+})->name('kelola.jadwal');
+
+Route::get('/kelola-matkul', function () {
+    return view('kelola.matkul');
+})->name('kelola.matkul');
+
+Route::get('/kelola-user', [UserController::class, 'index'])->name('kelola.user');
+
+Route::resource('users', UserController::class);

@@ -1,4 +1,4 @@
-<footer class="footer bg-light py-4 mt-auto" style="box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);">
+<footer class="footer bg-light py-1 mt-auto" style="box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);">
     <style>
         .footer {
             background-color: #f8f9fa;
@@ -8,12 +8,14 @@
         .footer-logo-text img {
             height: 50px;
             margin-bottom: 10px;
+            padding-top: 10px;
         }
         .footer h5 {
             font-size: 1rem; /* Ukuran heading tetap */
             margin-bottom: 10px; /* Jarak bawah heading */
             font-weight: bold;
             color: black;
+            padding-top: 10px;
         }
         .footer p, .footer ul li {
             font-size: 0.9rem; /* Ukuran teks tetap */

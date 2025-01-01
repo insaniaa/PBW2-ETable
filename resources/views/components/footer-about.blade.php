@@ -1,4 +1,4 @@
-<footer class="footer bg-light py-4 mt-auto" style="box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);">
+<footer class="footer bg-light py-1 mt-auto" style="box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);">
     <style>
         .footer {
             background-color: #f8f9fa;

@@ -21,9 +21,8 @@ class UserController extends Controller
      */
     public function index(Request $request): View
     {
-        $data = User::latest()->paginate(5);
-  
-        return view('user.admin',compact('data'))
+        $data = User::with('roles')->latest()->paginate(5); // Ambil data user dengan role
+        return view('kelola.user', compact('data')) // Gunakan view 'kelola.user'
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
     

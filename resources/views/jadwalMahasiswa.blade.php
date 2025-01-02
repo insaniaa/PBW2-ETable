@@ -29,7 +29,7 @@
                 @foreach($jadwals as $index => $jadwal)
                 <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
                     <div class="d-flex">
-                       
+                    
                         <!-- Current Item -->
                         <div class="schedule-card main-card">
                             <div class="card border-0 bg-white rounded-4 p-3">
@@ -59,8 +59,6 @@
                                 </div>
                             </div>
                         </div>
-
-                       
                     </div>
                 </div>
                 @endforeach

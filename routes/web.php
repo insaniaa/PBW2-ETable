@@ -95,3 +95,23 @@ Route::get('/kelola-matkul', function () {
 Route::get('/kelola-user', [UserController::class, 'index'])->name('kelola.user');
 
 Route::resource('users', UserController::class);
+
+Route::prefix('dosen')->middleware(['auth'])->group(function () {
+    Route::get('/beranda', function () {
+        return view('dosen.beranda');
+    })->name('dosen.beranda');
+
+    Route::get('/tugas', function () {
+        return view('dosen.tugas');
+    })->name('dosen.tugas');
+});
+
+Route::get('/dosen/tugas', function () {
+    return view('dosen.tugas');
+})->name('dosen.tugas');
+
+Route::post('/tambah-tugas', [TugasController::class, 'store'])->name('tambah-tugas');
+
+Route::get('/mahasiswa/dashboard', function () {
+    return view('mahasiswa.dashboard');
+})->name('mahasiswa.dashboard');

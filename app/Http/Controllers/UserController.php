@@ -130,4 +130,14 @@ class UserController extends Controller
         return redirect()->route('users.index')
                         ->with('success','User deleted successfully');
     }
+
+    public function profileDosen()
+    {
+        return view('user.profileDosen'); // Menampilkan view profileDosen.blade.php
+    }
+
+    public function profileMahasiswa()
+    {
+        return view('user.profileMahasiswa'); // Menampilkan view profileMahasiswa.blade.php
+    }
 }

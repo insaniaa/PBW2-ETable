@@ -115,3 +115,6 @@ Route::post('/tambah-tugas', [TugasController::class, 'store'])->name('tambah-tu
 Route::get('/mahasiswa/dashboard', function () {
     return view('mahasiswa.dashboard');
 })->name('mahasiswa.dashboard');
+
+Route::get('/user/profileDosen', [UserController::class, 'profileDosen'])->name('user.profileDosen');
+Route::get('/user/profileMahasiswa', [UserController::class, 'profileMahasiswa'])->name('user.profileMahasiswa');

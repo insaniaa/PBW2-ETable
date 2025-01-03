@@ -19,7 +19,7 @@
             <h4 class="fw-bold mb-3 text-danger">Jadwal Kuliah Hari Ini</h4>
             <div class="row g-3 mb-5">
                 <div class="col-md-4">
-                    <div class="card text-white shadow-sm" style="background-color: #BC1010; border-radius: 20px;">
+                    <div class="card text-white shadow-sm jadwal-card" style="background-color: #BC1010; border-radius: 20px;">
                         <div class="card-body text-center">
                             <h5 class="card-title fw-bold">Sistem Basis Data 1</h5>
                             <p>Waktu: <strong>07:30 - 09:30</strong></p>
@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card text-white shadow-sm" style="background-color: #BC1010; border-radius: 20px;">
+                    <div class="card text-white shadow-sm jadwal-card" style="background-color: #BC1010; border-radius: 20px;">
                         <div class="card-body text-center">
                             <h5 class="card-title fw-bold">Bahasa Inggris</h5>
                             <p>Waktu: <strong>09:45 - 11:15</strong></p>
@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card text-white shadow-sm" style="background-color: #BC1010; border-radius: 20px;">
+                    <div class="card text-white shadow-sm jadwal-card" style="background-color: #BC1010; border-radius: 20px;">
                         <div class="card-body text-center">
                             <h5 class="card-title fw-bold">Pemrograman Berbasis Web</h5>
                             <p>Waktu: <strong>13:00 - 15:00</strong></p>
@@ -92,3 +92,14 @@
     <!-- Footer Margin -->
     <div class="container mt-5"></div>
 </x-layout>
+
+<style>
+    .jadwal-card {
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .jadwal-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+</style>

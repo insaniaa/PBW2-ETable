@@ -1,117 +1,81 @@
 <?php
 
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\LecturerController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\TugasController;
+use App\Http\Controllers\RoomController;
+use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\StudentClassController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\UserController;
+use App\Models\Lecturer;
+use App\Models\StudentClass;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return redirect()->route('kelola.kelas'); // Redirect langsung ke Kelola Kelas
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/tugas', [TugasController::class, 'index'])->name('tugas.index');
 
-    Route::resource('roles', RoleController::class);
-    Route::resource('users', UserController::class);
+    Route::middleware(['role:Super Admin'])->prefix('/admin')->name('admin.')->group(function () {
+        Route::prefix('/master-data')->name('master_data.')->group(function () {
+            Route::resource('/user', UserController::class)->except('destroy');;
+            Route::post('/user/{user}/status', [UserController::class, 'updateStatus'])->name('user.update_status');
+            Route::post('/user/{user}/delete', [UserController::class, 'destroy'])->name('user.delete');
+
+            Route::prefix('/tabler')->name('tabler.')->group(function () {
+
+                Route::resource('/lecturer', LecturerController::class)->except('destroy');;
+                Route::post('/lecturer/{lecturer}/status', [LecturerController::class, 'updateStatus'])->name('lecturer.update_status');
+                Route::post('/lecturer/{lecturer}/delete', [LecturerController::class, 'destroy'])->name('lecturer.delete');
+
+                Route::resource('/student', StudentController::class)->except('destroy');;
+                Route::post('/student/{student}/status', [StudentController::class, 'updateStatus'])->name('student.update_status');
+                Route::post('/student/{student}/delete', [StudentController::class, 'destroy'])->name('student.delete');
+            });
+
+            Route::resource('/student-class', StudentClassController::class)->names('student_class')->except('destroy');
+            Route::post('/student-class/{student_class}/status', [StudentClassController::class, 'updateStatus'])->name('student_class.update_status');
+            Route::post('/student-class/{student_class}/delete', [StudentClassController::class, 'destroy'])->name('student_class.delete');
+
+            Route::resource('/room', RoomController::class)->except('destroy');;
+            Route::post('/room/{room}/status', [RoomController::class, 'updateStatus'])->name('room.update_status');
+            Route::post('/room/{room}/delete', [RoomController::class, 'destroy'])->name('room.delete');
+
+            Route::resource('/schedule', ScheduleController::class);
+             Route::post('/schedule/{schedule}/status', [ScheduleController::class, 'updateStatus'])->name('schedule.update_status');
+            Route::post('/schedule/{schedule}/delete', [ScheduleController::class, 'destroy'])->name('schedule.delete');
+
+            Route::resource('/course', CourseController::class)->except('destroy');;
+            Route::post('/course/{course}/status', [CourseController::class, 'updateStatus'])->name('course.update_status');
+            Route::post('/course/{course}/delete', [CourseController::class, 'destroy'])->name('course.delete');
+        });
+    });
+
+    Route::prefix('/lecturer')->name('lecturer.')->group(function () {
+        Route::prefix('/tasks')->name('task.')->group(function () {
+            Route::get('/tasks-today', [TaskController::class, 'tasksToday'])->name('tasks_today'); // View tasks for today
+            Route::resource('/', TaskController::class)->except('destroy');
+            Route::post('/{task}/status', [TaskController::class, 'updateStatus'])->name('update_status');
+            Route::post('/{task}/delete', [TaskController::class, 'destroy'])->name('delete');
+        });
+    });
+
+    Route::name('student.')->group(function () {
+        Route::get('/tasks-today', [TaskController::class, 'tasksToday'])->name('tasks_today');
+    });
+
+   
 });
 
-require __DIR__.'/auth.php';
-
-#add dari van
-
-Route::get('/mahasiswa', function () {
-    return view('mahasiswa');
-});
-
-// Route::get('/dsn', function () {
-//     return view('dosen');
-// });
-
-Route::get('/jdwlM', function () {
-    return view('jdwl');
-});
-
-Route::get('/jdwlMa', function () {
-    return view('jadwalMahasiswa');
-});
-
-Route::get('/jadwalkan', function () {
-    return view('jadwalkanAdmin');
-});
-
-Route::get('/berandaA', function () {
-    return view('berandaAdmin');
-});
-
-//task
-Route::get('/tugas', [TaskController::class,'view' ]);
-Route::resource('tasks', TaskController::class);
-
-Route::get('/dsn', [TaskController::class,'index' ]);
-Route::resource('tasks', TaskController::class);
-
-Route::get('/tasks/view', [TaskController::class, 'index']);
-Route::resource('tasks', TaskController::class);
+Route::get('/filter-schedules', [ScheduleController::class, 'filterSchedules'])->name('filterSchedules');
 
 
-Route::get('/tasks/create', [TaskController::class, 'create'])->name('tasks.create');
-Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
 
-Route::get('/tasks/{id}', [TaskController::class, 'show'])->name('tasks.show');
-
-Route::get('/kelola-kelas', function () {
-    return view('kelola.kelas');
-})->name('kelola.kelas');
-
-Route::get('/kelola-jadwal', function () {
-    return view('kelola.jadwal');
-})->name('kelola.jadwal');
-
-Route::get('/kelola-matkul', function () {
-    return view('kelola.matkul');
-})->name('kelola.matkul');
-
-Route::get('/kelola-user', [UserController::class, 'index'])->name('kelola.user');
-
-Route::resource('users', UserController::class);
-
-Route::prefix('dosen')->middleware(['auth'])->group(function () {
-    Route::get('/beranda', function () {
-        return view('dosen.beranda');
-    })->name('dosen.beranda');
-
-    Route::get('/tugas', function () {
-        return view('dosen.tugas');
-    })->name('dosen.tugas');
-});
-
-Route::get('/dosen/tugas', function () {
-    return view('dosen.tugas');
-})->name('dosen.tugas');
-
-Route::post('/tambah-tugas', [TugasController::class, 'store'])->name('tambah-tugas');
-
-Route::get('/mahasiswa/dashboard', function () {
-    return view('mahasiswa.dashboard');
-})->name('mahasiswa.dashboard');
+require __DIR__ . '/auth.php';
